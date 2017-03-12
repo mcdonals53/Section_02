@@ -83,12 +83,17 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 bool FBullCowGame::IsIsogram(FString Word) const
 {
 	// treat 0 and 1 letter string as Isograms
+	if (Word.length() <= 1) { return true; }
 
-	// loop through all letters in the word
-		// if letter is in the map
-			// we do NOT have isogram
-		// otherwise
-			// add letter to the map
-
+	TMap<char, bool> LetterSeen;  // setup our map
+	for (auto Letter : Word)  // For all Letters of the Word
+	{
+		Letter = tolower(Letter);
+		if (LetterSeen[Letter]) {// if letter is in the map
+			return false; // we do NOT have an isogram
+		} else {
+			LetterSeen[Letter] = true; // add letter to the map
+		}
+	}
 	return true;
 }
